@@ -13,7 +13,7 @@ Configurable variables
 
  timeout  - Connection timeout
  url      - Override default status-url
- ports    - HTTP port numbers
+ port     - HTTP port numbers
  user     - Manager username
  password - Manager password
  connector  - Connector to query, defaults to '"http-bio.$port"'

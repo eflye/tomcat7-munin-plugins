@@ -41,7 +41,7 @@ Connector to query, defaults to '"http-bio.$port"'
 =head2 CONFIGURATION EXAMPLE
 
  [tomcat_volume]
-  env.ports    8081
+  env.port     8081
   env.user     someuser
   env.password somepassword
 
@@ -93,7 +93,7 @@ if(!eval "require XML::Simple;") {
 } 
 
 my $URL       = exists $ENV{'url'}       ? $ENV{'url'}       : "http://%s:%s\@127.0.0.1:%d/manager/status?XML=true";
-my $PORT      = exists $ENV{'ports'}     ? $ENV{'ports'}     : 8080;
+my $PORT      = exists $ENV{'port'}      ? $ENV{'port'}      : 8080;
 my $USER      = exists $ENV{'user'}      ? $ENV{'user'}      : "munin";
 my $PASSWORD  = exists $ENV{'password'}  ? $ENV{'password'}  : "munin";
 my $TIMEOUT   = exists $ENV{'timeout'}   ? $ENV{'timeout'}   : 30;
