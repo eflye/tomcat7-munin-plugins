@@ -12,7 +12,6 @@ The following environment variables are used by this plugin
 
  timeout    - Connection timeout
  url	    - Override default status-url
- listenport - HTTP listening port number
  port       - Connector post number (legacy parameter, use connector instead)
  user       - Manager username
  password   - Manager password
@@ -69,15 +68,14 @@ if(!eval "require XML::Simple;") {
     $ret .= "XML::Simple not found";
 } 
 
-my $URL           = exists $ENV{'url'}           ? $ENV{'url'}           : "http://%s:%s\@127.0.0.1:%d/manager/status?XML=true";
-my $LISTENINGPORT = exists $ENV{'listeningport'} ? $ENV{'listeningport'} : 8080;
-my $PORT          = exists $ENV{'port'}          ? $ENV{'port'}          : 8080;
-my $USER          = exists $ENV{'user'}          ? $ENV{'user'}          : "munin";
-my $PASSWORD      = exists $ENV{'password'}      ? $ENV{'password'}      : "munin";
-my $TIMEOUT       = exists $ENV{'timeout'}       ? $ENV{'timeout'}       : 30;
-my $CONNECTOR     = exists $ENV{'connector'}     ? $ENV{'connector'}     : "http-bio.$PORT";
+my $URL       = exists $ENV{'url'}       ? $ENV{'url'}       : "http://%s:%s\@127.0.0.1:%d/manager/status?XML=true";
+my $PORT      = exists $ENV{'port'}      ? $ENV{'port'}      : 8080;
+my $USER      = exists $ENV{'user'}      ? $ENV{'user'}      : "munin";
+my $PASSWORD  = exists $ENV{'password'}  ? $ENV{'password'}  : "munin";
+my $TIMEOUT   = exists $ENV{'timeout'}   ? $ENV{'timeout'}   : 30;
+my $CONNECTOR = exists $ENV{'connector'} ? $ENV{'connector'} : "http-bio.$PORT";
 
-my $url = sprintf $URL, $USER, $PASSWORD, $LISTENINGPORT;
+my $url = sprintf $URL, $USER, $PASSWORD, $PORT;
 
 if(exists $ARGV[0] and $ARGV[0] eq "autoconf") {
     if($ret) {
