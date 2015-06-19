@@ -35,7 +35,7 @@ with the parameter "autoconf". If you get a "yes", everything should
 work like a charm already.
 
 tomcat-users.xml example:
-    <user username="munin" password="<set this>" roles="manager-status"/>
+ <user username="munin" password="<set this>" roles="manager-status"/>
 
 =head1 AUTHOR
 

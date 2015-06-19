@@ -7,7 +7,7 @@ tomcat_ - Munin plugin to monitor tomcat servers.
 
 =head1 APPLICABLE SYSTEMS
 
-Tomcat 5.0 or higher with the default tomcat manager webapp.
+Tomcat 7.0 or higher with the default tomcat manager webapp.
 
 =head1 USAGE
 
@@ -18,8 +18,7 @@ A munin-user in $CATALINA_HOME/conf/tomcat-users.xml should be set up for this t
 Tip: To see if it's already set up correctly, just run this plugin with the parameter "autoconf". If you get a "yes", everything should work like a charm already.
 
 tomcat-users.xml example:
-  <user username="munin" password="<set this>"
-        roles="standard,manager"/>
+ <user username="munin" password="<set this>" roles="manager-status"/>
 
 =head1 CONFIGURATION
 
@@ -53,7 +52,7 @@ Manager password
 
 =item connector
 
-Connector to query, defaults to '"http-bio.$port"'
+Connector to query, defaults to "http-".$port
 
 =back
 
@@ -74,7 +73,6 @@ Connector to query, defaults to '"http-bio.$port"'
   Rewrite and expansion in ruby: laxis <laxis@magex.hu> 2008.05
   Converted to rexml and integrated as default tomcat plugin
   by Erik Inge Bolsoe <knan@redpill-linpro.com> 2009.09
-  adapted default Port Settings for Tomcat7 by David Heidt <david@heidt.biz> 2012.07
 
 =head1 MAGIC MARKERS
 
@@ -92,7 +90,7 @@ require 'rexml/document'
 @user = ENV.member?('user') ? ENV['user']: "munin"
 @password = ENV.member?('password') ? ENV['password']: "munin"
 @timeout = ENV.member?('timeout') ? ENV['timeout']: 30
-@connector = ENV.member?('connector') ? ENV['connector']: '"http-bio-#{@port}"';
+@connector = ENV.member?('connector') ? ENV['connector']: "http-#{@port}";
 
 # hash
 w = {
