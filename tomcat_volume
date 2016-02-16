@@ -89,7 +89,7 @@ my $HOST      = exists $ENV{'host'}      ? $ENV{'host'}      : "127.0.0.1";
 my $USER      = exists $ENV{'user'}      ? $ENV{'user'}      : "munin";
 my $PASSWORD  = exists $ENV{'password'}  ? $ENV{'password'}  : "munin";
 my $TIMEOUT   = exists $ENV{'timeout'}   ? $ENV{'timeout'}   : 30;
-my $CONNECTOR = exists $ENV{'connector'} ? $ENV{'connector'} : "http-".$PORT;
+my $CONNECTOR = exists $ENV{'connector'} ? $ENV{'connector'} : "http-bio-".$PORT;
 
 my $url = sprintf $URL, $USER, $PASSWORD, $HOST, $PORT;
 
@@ -128,8 +128,8 @@ my %options = ( KeyAttr => { connector => 'name' }, ForceArray => 1 );
 my $xml = $xs->XMLin($response->content, %options);
 
 
-if($xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'requestInfo'}->[0]->{'bytesSent'}) {
-    print "volume.value " . $xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'requestInfo'}->[0]->{'bytesSent'} . "\n";
+if($xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'requestInfo'}[0]->{'bytesSent'}) {
+    print "volume.value " . $xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'requestInfo'}[0]->{'bytesSent'} . "\n";
 } else {
     print "volume.value U\n";
 }

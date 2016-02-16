@@ -70,7 +70,7 @@ my $HOST      = exists $ENV{'host'}      ? $ENV{'host'}      : "127.0.0.1";
 my $USER      = exists $ENV{'user'}      ? $ENV{'user'}      : "munin";
 my $PASSWORD  = exists $ENV{'password'}  ? $ENV{'password'}  : "munin";
 my $TIMEOUT   = exists $ENV{'timeout'}   ? $ENV{'timeout'}   : 30;
-my $CONNECTOR = exists $ENV{'connector'} ? $ENV{'connector'} : "http-".$PORT;
+my $CONNECTOR = exists $ENV{'connector'} ? $ENV{'connector'} : "http-bio-".$PORT;
 
 my $url = sprintf $URL, $USER, $PASSWORD, $HOST, $PORT;
 
@@ -110,12 +110,12 @@ my $response = $ua->request(HTTP::Request->new('GET',$url));
 my %options = ( KeyAttr => { connector => 'name' }, ForceArray => 1 );
 my $xml = $xs->XMLin($response->content, %options);
 
-if($xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}->[0]->{'currentThreadsBusy'} &&
-    $xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}->[0]->{'currentThreadCount'}) {
-    print "busy.value " . $xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}->[0]->{'currentThreadsBusy'} . "\n";
+if($xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}[0]->{'currentThreadsBusy'} &&
+    $xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}[0]->{'currentThreadCount'}) {
+    print "busy.value " . $xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}[0]->{'currentThreadsBusy'} . "\n";
     print "idle.value " .
-        ($xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}->[0]->{'currentThreadCount'} -
-        $xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}->[0]->{'currentThreadsBusy'}) . "\n";
+        ($xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}[0]->{'currentThreadCount'} -
+        $xml->{'connector'}->{'"'.$CONNECTOR.'"'}->{'threadInfo'}[0]->{'currentThreadsBusy'}) . "\n";
 } else {
     print "busy.value U\n";
     print "idle.value U\n";
